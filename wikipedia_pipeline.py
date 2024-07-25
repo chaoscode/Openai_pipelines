@@ -42,7 +42,10 @@ class Pipeline:
         else:
             titles = []
             for query in [user_message]:
-                query = query.replace(" ", "_")
+                # We should escape encode this not replace with _
+                query = query.encode('unicode-escape')
+               
+                # query = query.replace(" ", "_")
 
                 r = requests.get(
                     f"https://en.wikipedia.org/w/api.php?action=opensearch&search={query}&limit=1&namespace=0&format=json"
