@@ -63,7 +63,7 @@ class Pipeline:
                 print(titles)
 
             # Setup the context that goes to the LLM
-            context = body + "\n"
+            context = user_message
             
             # If we have titles from above, get context data from wiki in json
             if len(titles) > 0:
