@@ -37,13 +37,17 @@ class Pipeline:
     ) -> Union[str, Generator, Iterator]:
         # This is where you can add your custom pipelines like RAG.
         print(f"pipe:{__name__}")
+        
+        # Setup the context that goes to the LLM
+        context = user_message
 
         # Could add commands to configure the pipeline here
         if body.get("title", False):
             print("Title Generation")
             return "Wikipedia Pipeline"
         elif body.get("help", False):
-            return "This is the help menu test"
+            context = "[This is the help menu test]"
+            return context
         else:
             titles = []
             for query in [user_message]:
@@ -61,10 +65,7 @@ class Pipeline:
                 
                 # Print out all the titles
                 print(titles)
-
-            # Setup the context that goes to the LLM
-            context = user_message
-            
+           
             # If we have titles from above, get context data from wiki in json
             if len(titles) > 0:
                 r = requests.get(
