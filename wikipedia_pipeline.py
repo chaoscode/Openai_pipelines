@@ -43,7 +43,7 @@ class Pipeline:
             print("Title Generation")
             return "Wikipedia Pipeline"
         elif body.get("help", False):
-            return "Wikipedia Pipeline"
+            return "This is the help menu test"
         else:
             titles = []
             for query in [user_message]:
