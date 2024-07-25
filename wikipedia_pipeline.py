@@ -38,16 +38,15 @@ class Pipeline:
         # This is where you can add your custom pipelines like RAG.
         print(f"pipe:{__name__}")
         
-        # Setup the context that goes to the LLM
-        context = user_message
+        # Setup the context that goes to the LLM in the return
+        context = user_message + "\n"
 
         # Could add commands to configure the pipeline here
         if body.get("title", False):
             print("Title Generation")
-            return "Wikipedia Pipeline"
+            context = "Wikipedia Pipeline"
         elif body.get("help", False):
             context = "[This is the help menu test]"
-            return context
         else:
             titles = []
             for query in [user_message]:
@@ -81,5 +80,5 @@ class Pipeline:
                     else:
                         context = context + pages[page]["extract"] + "\n"
 
-            # Return new context from wiki
-            return context if context else "No information found from wiki"
+        # Return new context with data from wiki
+        return context
